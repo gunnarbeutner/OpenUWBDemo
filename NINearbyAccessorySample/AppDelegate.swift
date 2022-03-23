@@ -14,7 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if !NISession.isSupported {
+        var isSupported: Bool
+        if #available(iOS 16.0, *) {
+            isSupported = NISession.deviceCapabilities.supportsPreciseDistanceMeasurement
+        } else {
+            isSupported = NISession.isSupported
+        }
+        if !isSupported {
             print("unsupported device")
             // Ensure that the device supports NearbyInteraction and present
             //  an error message view controller, if not.
