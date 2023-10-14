@@ -2,12 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSNearbyInteractionUsageDescription</key>
-	<string>Demonstrate the Nearby Interaction third-party accessory API with a Bluetooth connected accessory</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>NIAccessory</string>
+	<string>OpenUWB</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
@@ -30,6 +28,15 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Bluetooth is used to exchange Nearby Interaction configuration data with a connected accessory.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used for nearby interactions.</string>
+	<key>NSNearbyInteractionUsageDescription</key>
+	<string>Demonstrate the Nearby Interaction third-party accessory API with a Bluetooth connected accessory</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>nearby-interaction</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

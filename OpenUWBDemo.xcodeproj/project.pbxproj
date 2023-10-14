@@ -3,35 +3,69 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C3067226FD13B00BADEF9 /* AppDelegate.swift */; };
 		012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C306B226FD13B00BADEF9 /* Main.storyboard */; };
-		012C306F226FD13B00BADEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012C306E226FD13B00BADEF9 /* Assets.xcassets */; };
 		012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */; };
+		1459BBE82AD9861500DE0F42 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		1466012D2ADA514700D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012C2ADA514700D7926D /* OpenUWB */; };
+		1466012F2ADA515400D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012E2ADA515400D7926D /* OpenUWB */; };
+		14E9688E2ADA56F500F354BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14E9688D2ADA56F500F354BF /* Assets.xcassets */; };
+		14EF50CE2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CD2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift */; };
+		14EF50D02AD94FCF000FFC9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CF2AD94FCF000FFC9E /* ContentView.swift */; };
+		14EF50D22AD94FD1000FFC9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EF50D12AD94FD1000FFC9E /* Assets.xcassets */; };
+		14EF50D52AD94FD1000FFC9E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EF50D42AD94FD1000FFC9E /* Preview Assets.xcassets */; };
+		14EF50D82AD94FD1000FFC9E /* OpenUWBDemoWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3A5E19872606CD0000837A4A /* AccessoryDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E19862606CD0000837A4A /* AccessoryDemoViewController.swift */; };
 		3A5E19892606CE4B00837A4A /* NearbyInteraction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E19882606CE4B00837A4A /* NearbyInteraction.framework */; };
 		3A5E198B2606CE5000837A4A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E198A2606CE5000837A4A /* CoreBluetooth.framework */; };
-		3AB619FE2606C487005014A2 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB619FD2606C487005014A2 /* BluetoothLECentral.swift */; };
 		A9A7C756227E1D6200F2CC59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A9A7C755227E1D6200F2CC59 /* README.md */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		14EF50D62AD94FD1000FFC9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 012C305C226FD13B00BADEF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 14EF50CA2AD94FCF000FFC9E;
+			remoteInfo = OpenUWBDemoWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		14EF50D92AD94FD1000FFC9E /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				14EF50D82AD94FD1000FFC9E /* OpenUWBDemoWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		012C3064226FD13B00BADEF9 /* NINearbyAccessorySample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NINearbyAccessorySample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		012C3064226FD13B00BADEF9 /* OpenUWBDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenUWBDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		012C3067226FD13B00BADEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		012C306C226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		012C306E226FD13B00BADEF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		012C3071226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		012C3073226FD13B00BADEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14E9688C2ADA532A00F354BF /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		14E9688D2ADA56F500F354BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenUWBDemoWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14EF50CD2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUWBDemoWatchApp.swift; sourceTree = "<group>"; };
+		14EF50CF2AD94FCF000FFC9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		14EF50D12AD94FD1000FFC9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		14EF50D42AD94FD1000FFC9E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A5E19862606CD0000837A4A /* AccessoryDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryDemoViewController.swift; sourceTree = "<group>"; };
 		3A5E19882606CE4B00837A4A /* NearbyInteraction.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NearbyInteraction.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.Internal.sdk/System/Library/Frameworks/NearbyInteraction.framework; sourceTree = DEVELOPER_DIR; };
 		3A5E198A2606CE5000837A4A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.Internal.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
-		3AB619FD2606C487005014A2 /* BluetoothLECentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLECentral.swift; sourceTree = "<group>"; };
-		88E2F282E2613DBD2D34BAAB /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		88E2F282E2613DBD2D34BAAB /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		A9A7C755227E1D6200F2CC59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		BE0B97C22E79202C51FF70E5 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,8 +73,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1466012D2ADA514700D7926D /* OpenUWB in Frameworks */,
 				3A5E198B2606CE5000837A4A /* CoreBluetooth.framework in Frameworks */,
 				3A5E19892606CE4B00837A4A /* NearbyInteraction.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14EF50C82AD94FCF000FFC9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1466012F2ADA515400D7926D /* OpenUWB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,45 +93,55 @@
 		012C305B226FD13B00BADEF9 = {
 			isa = PBXGroup;
 			children = (
+				14E9688C2ADA532A00F354BF /* LICENSE.txt */,
 				A9A7C755227E1D6200F2CC59 /* README.md */,
-				012C3066226FD13B00BADEF9 /* NINearbyAccessorySample */,
+				012C3066226FD13B00BADEF9 /* OpenUWBDemo */,
+				14EF50CC2AD94FCF000FFC9E /* OpenUWBDemoWatch */,
 				012C3065226FD13B00BADEF9 /* Products */,
 				A9FCEFA62293634C008CC0CF /* Frameworks */,
 				D0887E186C8C54F49A98DFAD /* Configuration */,
 				1F942FA9F35A69853BA0FD5F /* Configuration */,
-				1878BD44FD7452E0AC8DD9B1 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
 		012C3065226FD13B00BADEF9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				012C3064226FD13B00BADEF9 /* NINearbyAccessorySample.app */,
+				012C3064226FD13B00BADEF9 /* OpenUWBDemo.app */,
+				14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		012C3066226FD13B00BADEF9 /* NINearbyAccessorySample */ = {
+		012C3066226FD13B00BADEF9 /* OpenUWBDemo */ = {
 			isa = PBXGroup;
 			children = (
-				3A0936E52607ED9D00D072C7 /* BluetoothSupport */,
 				012C3067226FD13B00BADEF9 /* AppDelegate.swift */,
 				3A5E19862606CD0000837A4A /* AccessoryDemoViewController.swift */,
 				012C306B226FD13B00BADEF9 /* Main.storyboard */,
-				012C306E226FD13B00BADEF9 /* Assets.xcassets */,
 				012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */,
-				012C3073226FD13B00BADEF9 /* Info.plist */,
+				14E9688D2ADA56F500F354BF /* Assets.xcassets */,
 			);
-			path = NINearbyAccessorySample;
+			path = OpenUWBDemo;
 			sourceTree = "<group>";
 		};
-		1878BD44FD7452E0AC8DD9B1 /* LICENSE */ = {
+		14EF50CC2AD94FCF000FFC9E /* OpenUWBDemoWatch */ = {
 			isa = PBXGroup;
 			children = (
-				BE0B97C22E79202C51FF70E5 /* LICENSE.txt */,
+				14EF50CD2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift */,
+				14EF50CF2AD94FCF000FFC9E /* ContentView.swift */,
+				14EF50D12AD94FD1000FFC9E /* Assets.xcassets */,
+				14EF50D32AD94FD1000FFC9E /* Preview Content */,
 			);
-			name = LICENSE;
-			path = LICENSE;
+			path = OpenUWBDemoWatch;
+			sourceTree = "<group>";
+		};
+		14EF50D32AD94FD1000FFC9E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				14EF50D42AD94FD1000FFC9E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		1F942FA9F35A69853BA0FD5F /* Configuration */ = {
@@ -97,14 +150,6 @@
 				88E2F282E2613DBD2D34BAAB /* SampleCode.xcconfig */,
 			);
 			name = Configuration;
-			sourceTree = "<group>";
-		};
-		3A0936E52607ED9D00D072C7 /* BluetoothSupport */ = {
-			isa = PBXGroup;
-			children = (
-				3AB619FD2606C487005014A2 /* BluetoothLECentral.swift */,
-			);
-			path = BluetoothSupport;
 			sourceTree = "<group>";
 		};
 		A9FCEFA62293634C008CC0CF /* Frameworks */ = {
@@ -126,21 +171,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		012C3063226FD13B00BADEF9 /* NINearbyAccessorySample */ = {
+		012C3063226FD13B00BADEF9 /* OpenUWBDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "NINearbyAccessorySample" */;
+			buildConfigurationList = 012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "OpenUWBDemo" */;
 			buildPhases = (
 				012C3060226FD13B00BADEF9 /* Sources */,
 				012C3061226FD13B00BADEF9 /* Frameworks */,
 				012C3062226FD13B00BADEF9 /* Resources */,
+				14EF50D92AD94FD1000FFC9E /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				14EF50D72AD94FD1000FFC9E /* PBXTargetDependency */,
+			);
+			name = OpenUWBDemo;
+			packageProductDependencies = (
+				1466012C2ADA514700D7926D /* OpenUWB */,
+			);
+			productName = BTLETransfer;
+			productReference = 012C3064226FD13B00BADEF9 /* OpenUWBDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		14EF50CA2AD94FCF000FFC9E /* OpenUWBDemoWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14EF50DC2AD94FD1000FFC9E /* Build configuration list for PBXNativeTarget "OpenUWBDemoWatch" */;
+			buildPhases = (
+				14EF50C72AD94FCF000FFC9E /* Sources */,
+				14EF50C82AD94FCF000FFC9E /* Frameworks */,
+				14EF50C92AD94FCF000FFC9E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NINearbyAccessorySample;
-			productName = BTLETransfer;
-			productReference = 012C3064226FD13B00BADEF9 /* NINearbyAccessorySample.app */;
+			name = OpenUWBDemoWatch;
+			packageProductDependencies = (
+				1466012E2ADA515400D7926D /* OpenUWB */,
+			);
+			productName = OpenUWBDemoWatch;
+			productReference = 14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -149,17 +219,22 @@
 		012C305C226FD13B00BADEF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1300;
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Apple;
 				TargetAttributes = {
 					012C3063226FD13B00BADEF9 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1110;
 					};
+					14EF50CA2AD94FCF000FFC9E = {
+						CreatedOnToolsVersion = 15.0;
+					};
 				};
 			};
-			buildConfigurationList = 012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "NINearbyAccessorySample" */;
+			buildConfigurationList = 012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "OpenUWBDemo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -168,11 +243,15 @@
 				Base,
 			);
 			mainGroup = 012C305B226FD13B00BADEF9;
+			packageReferences = (
+				14EF51082AD953AB000FFC9E /* XCLocalSwiftPackageReference "../OpenUWB" */,
+			);
 			productRefGroup = 012C3065226FD13B00BADEF9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				012C3063226FD13B00BADEF9 /* NINearbyAccessorySample */,
+				012C3063226FD13B00BADEF9 /* OpenUWBDemo */,
+				14EF50CA2AD94FCF000FFC9E /* OpenUWBDemoWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -183,9 +262,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */,
-				012C306F226FD13B00BADEF9 /* Assets.xcassets in Resources */,
 				A9A7C756227E1D6200F2CC59 /* README.md in Resources */,
+				1459BBE82AD9861500DE0F42 /* (null) in Resources */,
 				012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */,
+				14E9688E2ADA56F500F354BF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14EF50C92AD94FCF000FFC9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14EF50D52AD94FD1000FFC9E /* Preview Assets.xcassets in Resources */,
+				14EF50D22AD94FD1000FFC9E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,13 +285,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AB619FE2606C487005014A2 /* BluetoothLECentral.swift in Sources */,
 				3A5E19872606CD0000837A4A /* AccessoryDemoViewController.swift in Sources */,
 				012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		14EF50C72AD94FCF000FFC9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14EF50D02AD94FCF000FFC9E /* ContentView.swift in Sources */,
+				14EF50CE2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		14EF50D72AD94FD1000FFC9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 14EF50CA2AD94FCF000FFC9E /* OpenUWBDemoWatch */;
+			targetProxy = 14EF50D62AD94FD1000FFC9E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		012C306B226FD13B00BADEF9 /* Main.storyboard */ = {
@@ -348,17 +453,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88E2F282E2613DBD2D34BAAB /* SampleCode.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = NINearbyAccessorySample/Info.plist;
+				DEVELOPMENT_TEAM = DWAPE69HXP;
+				INFOPLIST_FILE = OpenUWBDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.NINearbyAccessorySample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "name.beutner.OpenUWBDemo${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = name.beutner.OpenUWBDemoDWAPE69HXP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -371,17 +478,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88E2F282E2613DBD2D34BAAB /* SampleCode.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = NINearbyAccessorySample/Info.plist;
+				DEVELOPMENT_TEAM = DWAPE69HXP;
+				INFOPLIST_FILE = OpenUWBDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.NINearbyAccessorySample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "name.beutner.OpenUWBDemo${SAMPLE_CODE_DISAMBIGUATOR}";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = name.beutner.OpenUWBDemoDWAPE69HXP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -390,10 +499,85 @@
 			};
 			name = Release;
 		};
+		14EF50DA2AD94FD1000FFC9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OpenUWBDemoWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = DWAPE69HXP;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpenUWBDemoWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpenUWBDemoWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemoDWAPE69HXP;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemoDWAPE69HXP.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		14EF50DB2AD94FD1000FFC9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OpenUWBDemoWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = DWAPE69HXP;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpenUWBDemoWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpenUWBDemoWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemoDWAPE69HXP;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemoDWAPE69HXP.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "NINearbyAccessorySample" */ = {
+		012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "OpenUWBDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				012C3074226FD13B00BADEF9 /* Debug */,
@@ -402,7 +586,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "NINearbyAccessorySample" */ = {
+		012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "OpenUWBDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				012C3077226FD13B00BADEF9 /* Debug */,
@@ -411,7 +595,36 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		14EF50DC2AD94FD1000FFC9E /* Build configuration list for PBXNativeTarget "OpenUWBDemoWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14EF50DA2AD94FD1000FFC9E /* Debug */,
+				14EF50DB2AD94FD1000FFC9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		14EF51082AD953AB000FFC9E /* XCLocalSwiftPackageReference "../OpenUWB" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../OpenUWB;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1466012C2ADA514700D7926D /* OpenUWB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14EF51082AD953AB000FFC9E /* XCLocalSwiftPackageReference "../OpenUWB" */;
+			productName = OpenUWB;
+		};
+		1466012E2ADA515400D7926D /* OpenUWB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14EF51082AD953AB000FFC9E /* XCLocalSwiftPackageReference "../OpenUWB" */;
+			productName = OpenUWB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 012C305C226FD13B00BADEF9 /* Project object */;
 }
