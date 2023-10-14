@@ -13,16 +13,15 @@ import SwiftUI
 import OpenUWB
 
 class AppState: ObservableObject {
-    @Published var bluetoothState = "Not Connected"
-    @Published var uwbState = "OFF"
     @Published var distanceInfo = ""
-    @Published var generalStatus = ""
 }
 
 @main
 class OpenUWBDemoWatchApp: App {
     @ObservedObject var appState = AppState()
     private var uwbManager: OpenUWB.UWBManager!
+    private var accessories: [String: UWBAccessory] = [:]
+    private var distances: [String: Float?] = [:]
 
     /*func handleUserDidNotAllow() {
         // Beginning in iOS 15, persistent access state in Settings.
@@ -61,21 +60,22 @@ class OpenUWBDemoWatchApp: App {
 }
 
 extension OpenUWBDemoWatchApp: UWBManagerDelegate {
-    func didUpdateBluetoothState(state: Bool) {
-        appState.bluetoothState = state ? "Connected" : "Not Connected"
-    }
-    
-    func didUpdateUWBState(state: Bool) {
-        appState.uwbState = state ? "ON" : "OFF"
-    }
-    
-    func didUpdateAccessory(accessory: OpenUWB.UWBAccessory) {
-        appState.distanceInfo = uwbManager.accessories.values.filter { $0.connected }.map {
-            String(format: "%@: %0.1fm\n", $0.publicIdentifier, $0.distance ?? Float.infinity)
+    func didUpdateAccessory(accessory: UWBAccessory) {
+        distances[accessory.publicIdentifier] = accessory.distance
+        appState.distanceInfo = distances.map {
+            String(format: "%@: %0.1fm\n", $0.key, $0.value ?? "?")
         }.joined()
     }
     
-    func log(_ message: String) {
-        appState.generalStatus = message
+    func didConnect(accessory: BluetoothAccessory) {
+        distances[accessory.publicIdentifier] = nil
+    }
+    
+    func didFailToConnect(accessory: BluetoothAccessory) {
+        distances.removeValue(forKey: accessory.publicIdentifier)
+    }
+
+    func didDisconnect(accessory: BluetoothAccessory) {
+        distances.removeValue(forKey: accessory.publicIdentifier)
     }
 }

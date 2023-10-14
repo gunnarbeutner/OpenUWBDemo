@@ -13,6 +13,7 @@
 		1459BBE82AD9861500DE0F42 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1466012D2ADA514700D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012C2ADA514700D7926D /* OpenUWB */; };
 		1466012F2ADA515400D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012E2ADA515400D7926D /* OpenUWB */; };
+		147BE1B12ADAD55D00186C62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147BE1B02ADAD55C00186C62 /* ARKit.framework */; };
 		14E9688E2ADA56F500F354BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14E9688D2ADA56F500F354BF /* Assets.xcassets */; };
 		14EF50CE2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CD2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift */; };
 		14EF50D02AD94FCF000FFC9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CF2AD94FCF000FFC9E /* ContentView.swift */; };
@@ -54,6 +55,7 @@
 		012C3067226FD13B00BADEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		012C306C226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		012C3071226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		147BE1B02ADAD55C00186C62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		14E9688C2ADA532A00F354BF /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		14E9688D2ADA56F500F354BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenUWBDemoWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 			files = (
 				1466012D2ADA514700D7926D /* OpenUWB in Frameworks */,
 				3A5E198B2606CE5000837A4A /* CoreBluetooth.framework in Frameworks */,
+				147BE1B12ADAD55D00186C62 /* ARKit.framework in Frameworks */,
 				3A5E19892606CE4B00837A4A /* NearbyInteraction.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,6 +158,7 @@
 		A9FCEFA62293634C008CC0CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				147BE1B02ADAD55C00186C62 /* ARKit.framework */,
 				3A5E198A2606CE5000837A4A /* CoreBluetooth.framework */,
 				3A5E19882606CE4B00837A4A /* NearbyInteraction.framework */,
 			);

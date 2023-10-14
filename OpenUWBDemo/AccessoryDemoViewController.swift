@@ -12,11 +12,14 @@
 import UIKit
 import os.log
 import OpenUWB
+import AVFoundation
 
 class AccessoryDemoViewController: UIViewController {
     private var uwbManager: UWBManager!
+    private var accessories: [String: UWBAccessory] = [:]
+    private var distances: [String: Float?] = [:]
 
-    let logger = os.Logger(subsystem: "com.example.apple-samplecode.NINearbyAccessorySample", category: "AccessoryDemoViewController")
+    let logger = os.Logger(subsystem: "name.beutner.OpenUWBDemo", category: "AccessoryDemoViewController")
 
     @IBOutlet weak var connectionStateLabel: UILabel!
     @IBOutlet weak var uwbStateLabel: UILabel!
@@ -29,19 +32,42 @@ class AccessoryDemoViewController: UIViewController {
         
         updateInfoLabel(with: "Scanning for accessories")
 
-        uwbManager = OpenUWB.UWBManager(delegate: self)
+        var uwbManagerOptions = UWBManagerOptions()
+        if #available(iOS 16.0, *) {
+            uwbManagerOptions.useCameraAssistance = true
+        }
+        uwbManager = UWBManager(delegate: self, options: uwbManagerOptions)
         uwbManager.start()
     }
 }
 
 extension AccessoryDemoViewController : UWBManagerDelegate {
     func didUpdateAccessory(accessory: UWBAccessory) {
-        distanceLabel.text = uwbManager.accessories.values.filter { $0.connected }.map {
-            String(format: "%@: %0.1fm\n", $0.publicIdentifier, $0.distance ?? Float.infinity)
+        distances[accessory.publicIdentifier] = accessory.distance
+        distanceLabel.text = distances.map {
+            String(format: "%@: %@\n", $0.key, $0.value != nil ? String(format: "%0.1fm", $0.value!) : "?")
         }.joined()
         distanceLabel.sizeToFit()
     }
     
+    func didDiscover(accessory: BluetoothAccessory, rssi: NSNumber) {
+        distances.updateValue(nil, forKey: accessory.publicIdentifier)
+        // We're relying on auto-connect here, however we would have
+        // to call uwbManager.connect() if it's disabled.
+    }
+
+    func didConnect(accessory: BluetoothAccessory) {
+        distances.updateValue(nil, forKey: accessory.publicIdentifier)
+    }
+    
+    func didFailToConnect(accessory: BluetoothAccessory) {
+        distances.removeValue(forKey: accessory.publicIdentifier)
+    }
+
+    func didDisconnect(accessory: BluetoothAccessory) {
+        distances.removeValue(forKey: accessory.publicIdentifier)
+    }
+
     func didUpdateBluetoothState(state: Bool) {
         self.connectionStateLabel.text = state ? "Connected" : "Not Connected"
     }
@@ -50,7 +76,7 @@ extension AccessoryDemoViewController : UWBManagerDelegate {
         self.uwbStateLabel.text = state ? "ON" : "OFF"
     }
     
-    func log(message: String) {
+    func log(_ message: String) {
         updateInfoLabel(with: message)
     }
     
