@@ -1,0 +1,169 @@
+floors:
+  - id: apartment
+    name: Apartment
+    bounds: [[0, 0, 0], [15.26, 7.78, 2.5]]
+    rooms:
+      - name: Winter Garden
+        points:
+          - [0, 7.78]
+          - [2.50, 7.78]
+          - [2.50, 3.8]
+          - [2.0, 3.8]
+          - [0.48, 4.56]
+      - name: Living Room
+        points:
+          - [2.58, 7.78]
+          - [8.08, 7.78]
+          - [8.08, 3.8]
+          - [2.58, 3.8]
+      - name: Dining Room
+        points:
+          - [8.4, 6.26]
+          - [11.8, 6.26]
+          - [11.8, 3.8]
+          - [8.4, 3.8]
+          - [8.27, 3.8]
+          - [8.08, 3.8]
+          - [8.08, 5.2]
+          - [8.4, 5.2]
+      - name: Kitchen
+        points:
+          - [12.0, 5.56]
+          - [12.42, 5.56]
+          - [12.42, 6.26]
+          - [15.26, 6.26]
+          - [15.26, 3.78]
+          - [12.0, 3.78]
+          - [12.0, 4.38]
+          - [11.8, 4.38]
+          - [11.8, 5.56]
+      - name: Bedroom
+        points:
+          - [2.24, 3.5]
+          - [5.84, 3.5]
+          - [5.84, 3.0]
+          - [6.28, 3.0]
+          - [6.4, 3.0]
+          - [6.4, 2.15]
+          - [6.28, 2.15]
+          - [6.28, 1.98]
+          - [5.5, 1.98]
+          - [5.5, 0]
+          - [2.24, 0]
+      - name: Hallway
+        points:
+          - [6.4, 3.5]
+          - [8.27, 3.5]
+          - [8.27, 3.8]
+          - [9.22, 3.8]
+          - [9.22, 3.5]
+          - [9.58, 3.5]
+          - [9.58, 1.98]
+          - [6.4, 1.98]
+      - name: Bathroom
+        points:
+          - [5.62, 1.8]
+          - [6.52, 1.8]
+          - [6.52, 1.98]
+          - [7.29, 1.98]
+          - [7.29, 1.8]
+          - [8.2, 1.8]
+          - [8.2, 1.0]
+          - [7.85, 1.0]
+          - [7.85, 0]
+          - [5.62, 0]
+      - name: Toilet
+        points:
+          - [8.34, 1.8]
+          - [8.69, 1.8]
+          - [8.69, 1.98]
+          - [9.45, 1.98]
+          - [9.45, 1.8]
+          - [9.58, 1.8]
+          - [9.58, 0]
+          - [8.34, 0]
+      - name: Office
+        points:
+          - [9.74, 3.5]
+          - [13.66, 3.5]
+          - [13.66, 0]
+          - [9.74, 0]
+          - [9.74, 2.12]
+          - [9.58, 2.12]
+          - [9.58, 2.88]
+          - [9.74, 2.88]
+
+accessories:
+  - id: f5e99c421dd198bb9fe4bcb596b2aa1a # yellow
+    location: [6.08, 4.0, 1.85]
+    exact: true
+  - id: 37eafb69914c8527424b06698fd34227 # brown
+    location: [4.43, 6.95, 0.8]
+    exact: true
+  - id: fd4428875838288180a0825417723c20 # white
+    location: [3.58, 3.9, 2.05]
+    exact: true
+  - id: 'c80b03' # Kitchen
+    location: [15.11, 6.16, 2.20]
+    exact: false
+  - id: '004507' # Office
+    location: [13.16, 0.95, 0.75]
+    exact: false
+  - id: '407d03'  # Bedroom
+    location: [3.19, 0.25, 0.9]
+    exact: false
+  - id: '70f902'  # Living Room TV
+    location: [4.43, 6.95, 0.8]
+    exact: false
+  - id: '486d06' # Living Room
+    location: [3.58, 3.9, 2.05]
+    exact: false
+  - id: 'd0f702' # Dining Room
+    location: [11.75, 6.16, 1.6]
+    exact: false
+  - id: '745803' # Office Corner
+    location: [9.76, 0.9, 0.5]
+    exact: false
+  - id: 'ac6303' # Office TV
+    location: [12.36, 3.1, 1.05]
+    exact: false
+  - id: 'bc8203' # Bathroom
+    location: [7.88, 1.05, 1.6] # x-0.3
+    exact: false
+  - id: 'ec8603'  # Living Room Couch
+    location: [6.08, 4.0, 1.85]
+    exact: false
+  - id: 'dc3a03' # Office
+    location: [9.75, 2.9, 1.0]
+    exact: false
+  - id: '840d04' # Bedroom
+    location: [4.55, 0.25, 0.95]
+    exact: false
+  - id: 'dc0904' # Living Room Corner
+    location: [7.88, 7.73, 0.9]
+    exact: false
+  - id: '681504' # Living Room Door
+    location: [5.98, 6.38, 0.1]
+    exact: false
+  - id: '603e03' # Dining Room
+    location: [10.6, 4.86, 0.72]
+    exact: false
+  - id: '58e301' # Office Couch Middle
+    location: [11.86, 0.01, 0.8]
+    exact: false
+  - id: 'c03e03' # Office Window
+    location: [13.65, 2.5, 1.1]
+    exact: false
+  - id: '6c3801' # Office Couch Right
+    location: [10.56, 0, 0.78] # x+0.5
+    exact: false
+  - id: '3c0e04' # Office Center
+    location: [10.66, 1.55, 0.0]
+    exact: false
+  - id: '74ef01' # Bedroom Dresser
+    location: [5.44, 3.1, 1.28]
+    exact: false
+  - id: '5c4c47' # Toilet
+    location: [8.35, 0.85, 1.35]
+    exact: false
+

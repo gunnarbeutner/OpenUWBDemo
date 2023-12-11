@@ -48,8 +48,9 @@ class OpenUWBDemoWatchApp: App {
     }*/
     
     required init() {
-        self.uwbManager = OpenUWB.UWBManager(delegate: self)
-        uwbManager.start()
+        uwbManager = UWBManager()
+        uwbManager.delegate = self
+        uwbManager.run()
     }
 
     var body: some Scene {
@@ -61,7 +62,7 @@ class OpenUWBDemoWatchApp: App {
 
 extension OpenUWBDemoWatchApp: UWBManagerDelegate {
     func didUpdateAccessory(accessory: UWBAccessory) {
-        distances[accessory.publicIdentifier] = accessory.distance
+        distances[accessory.publicIdentifier] = accessory.nearbyObject?.distance
         appState.distanceInfo = distances.map {
             String(format: "%@: %0.1fm\n", $0.key, $0.value ?? "?")
         }.joined()

@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C3067226FD13B00BADEF9 /* AppDelegate.swift */; };
-		012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C306B226FD13B00BADEF9 /* Main.storyboard */; };
-		012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */; };
+		012C3068226FD13B00BADEF9 /* OpenUWBDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C3067226FD13B00BADEF9 /* OpenUWBDemoApp.swift */; };
+		1404B7552ADCEB4A0070DF72 /* SimplexSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404B7542ADCEB4A0070DF72 /* SimplexSearcher.swift */; };
+		1404B7572ADCF1E10070DF72 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404B7562ADCF1E10070DF72 /* Vector.swift */; };
+		1404B7592ADCF2320070DF72 /* MathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404B7582ADCF2320070DF72 /* MathFunctions.swift */; };
+		1404B75B2ADCF2550070DF72 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404B75A2ADCF2550070DF72 /* Helpers.swift */; };
+		1404B75D2ADCF3130070DF72 /* VectorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404B75C2ADCF3130070DF72 /* VectorUtils.swift */; };
+		141FEFFB2ADC3F18008ADB81 /* FloorplanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FEFFA2ADC3F17008ADB81 /* FloorplanView.swift */; };
 		1459BBE82AD9861500DE0F42 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1466012D2ADA514700D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012C2ADA514700D7926D /* OpenUWB */; };
 		1466012F2ADA515400D7926D /* OpenUWB in Frameworks */ = {isa = PBXBuildFile; productRef = 1466012E2ADA515400D7926D /* OpenUWB */; };
 		147BE1B12ADAD55D00186C62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147BE1B02ADAD55C00186C62 /* ARKit.framework */; };
+		14D28F432ADB52EC000824C6 /* UnsupportedDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D28F422ADB52EC000824C6 /* UnsupportedDeviceView.swift */; };
+		14D28F462ADB5330000824C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D28F452ADB5330000824C6 /* ContentView.swift */; };
+		14D28F482ADB5348000824C6 /* CameraAssistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D28F472ADB5348000824C6 /* CameraAssistanceView.swift */; };
+		14D28F4A2ADB5BCA000824C6 /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D28F492ADB5BCA000824C6 /* MathUtilities.swift */; };
 		14E9688E2ADA56F500F354BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14E9688D2ADA56F500F354BF /* Assets.xcassets */; };
 		14EF50CE2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CD2AD94FCF000FFC9E /* OpenUWBDemoWatchApp.swift */; };
 		14EF50D02AD94FCF000FFC9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EF50CF2AD94FCF000FFC9E /* ContentView.swift */; };
@@ -52,10 +60,18 @@
 
 /* Begin PBXFileReference section */
 		012C3064226FD13B00BADEF9 /* OpenUWBDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenUWBDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		012C3067226FD13B00BADEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		012C306C226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		012C3071226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		012C3067226FD13B00BADEF9 /* OpenUWBDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUWBDemoApp.swift; sourceTree = "<group>"; };
+		1404B7542ADCEB4A0070DF72 /* SimplexSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplexSearcher.swift; sourceTree = "<group>"; };
+		1404B7562ADCF1E10070DF72 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
+		1404B7582ADCF2320070DF72 /* MathFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathFunctions.swift; sourceTree = "<group>"; };
+		1404B75A2ADCF2550070DF72 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1404B75C2ADCF3130070DF72 /* VectorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorUtils.swift; sourceTree = "<group>"; };
+		141FEFFA2ADC3F17008ADB81 /* FloorplanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorplanView.swift; sourceTree = "<group>"; };
 		147BE1B02ADAD55C00186C62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		14D28F422ADB52EC000824C6 /* UnsupportedDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedDeviceView.swift; sourceTree = "<group>"; };
+		14D28F452ADB5330000824C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		14D28F472ADB5348000824C6 /* CameraAssistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAssistanceView.swift; sourceTree = "<group>"; };
+		14D28F492ADB5BCA000824C6 /* MathUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		14E9688C2ADA532A00F354BF /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		14E9688D2ADA56F500F354BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14EF50CB2AD94FCF000FFC9E /* OpenUWBDemoWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenUWBDemoWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,13 +135,37 @@
 		012C3066226FD13B00BADEF9 /* OpenUWBDemo */ = {
 			isa = PBXGroup;
 			children = (
-				012C3067226FD13B00BADEF9 /* AppDelegate.swift */,
+				1404B75E2ADCF37B0070DF72 /* NelderMead */,
+				14D28F412ADB5269000824C6 /* Views */,
+				012C3067226FD13B00BADEF9 /* OpenUWBDemoApp.swift */,
 				3A5E19862606CD0000837A4A /* AccessoryDemoViewController.swift */,
-				012C306B226FD13B00BADEF9 /* Main.storyboard */,
-				012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */,
 				14E9688D2ADA56F500F354BF /* Assets.xcassets */,
 			);
 			path = OpenUWBDemo;
+			sourceTree = "<group>";
+		};
+		1404B75E2ADCF37B0070DF72 /* NelderMead */ = {
+			isa = PBXGroup;
+			children = (
+				14D28F492ADB5BCA000824C6 /* MathUtilities.swift */,
+				1404B7542ADCEB4A0070DF72 /* SimplexSearcher.swift */,
+				1404B7562ADCF1E10070DF72 /* Vector.swift */,
+				1404B75C2ADCF3130070DF72 /* VectorUtils.swift */,
+				1404B7582ADCF2320070DF72 /* MathFunctions.swift */,
+				1404B75A2ADCF2550070DF72 /* Helpers.swift */,
+			);
+			path = NelderMead;
+			sourceTree = "<group>";
+		};
+		14D28F412ADB5269000824C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14D28F422ADB52EC000824C6 /* UnsupportedDeviceView.swift */,
+				14D28F452ADB5330000824C6 /* ContentView.swift */,
+				14D28F472ADB5348000824C6 /* CameraAssistanceView.swift */,
+				141FEFFA2ADC3F17008ADB81 /* FloorplanView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		14EF50CC2AD94FCF000FFC9E /* OpenUWBDemoWatch */ = {
@@ -265,10 +305,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */,
 				A9A7C756227E1D6200F2CC59 /* README.md in Resources */,
 				1459BBE82AD9861500DE0F42 /* (null) in Resources */,
-				012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */,
 				14E9688E2ADA56F500F354BF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,8 +327,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14D28F432ADB52EC000824C6 /* UnsupportedDeviceView.swift in Sources */,
 				3A5E19872606CD0000837A4A /* AccessoryDemoViewController.swift in Sources */,
-				012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */,
+				14D28F482ADB5348000824C6 /* CameraAssistanceView.swift in Sources */,
+				14D28F462ADB5330000824C6 /* ContentView.swift in Sources */,
+				1404B75D2ADCF3130070DF72 /* VectorUtils.swift in Sources */,
+				1404B75B2ADCF2550070DF72 /* Helpers.swift in Sources */,
+				1404B7552ADCEB4A0070DF72 /* SimplexSearcher.swift in Sources */,
+				14D28F4A2ADB5BCA000824C6 /* MathUtilities.swift in Sources */,
+				012C3068226FD13B00BADEF9 /* OpenUWBDemoApp.swift in Sources */,
+				141FEFFB2ADC3F18008ADB81 /* FloorplanView.swift in Sources */,
+				1404B7572ADCF1E10070DF72 /* Vector.swift in Sources */,
+				1404B7592ADCF2320070DF72 /* MathFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,25 +360,6 @@
 			targetProxy = 14EF50D62AD94FD1000FFC9E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		012C306B226FD13B00BADEF9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				012C306C226FD13B00BADEF9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				012C3071226FD13B00BADEF9 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		012C3074226FD13B00BADEF9 /* Debug */ = {
@@ -463,13 +492,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DWAPE69HXP;
 				INFOPLIST_FILE = OpenUWBDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "name.beutner.OpenUWBDemo${SAMPLE_CODE_DISAMBIGUATOR}";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = name.beutner.OpenUWBDemoDWAPE69HXP;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -488,13 +516,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DWAPE69HXP;
 				INFOPLIST_FILE = OpenUWBDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "name.beutner.OpenUWBDemo${SAMPLE_CODE_DISAMBIGUATOR}";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = name.beutner.OpenUWBDemoDWAPE69HXP;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -522,14 +549,15 @@
 				INFOPLIST_FILE = OpenUWBDemoWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OpenUWBDemoWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemoDWAPE69HXP;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemoDWAPE69HXP.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -560,14 +588,15 @@
 				INFOPLIST_FILE = OpenUWBDemoWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OpenUWBDemoWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemoDWAPE69HXP;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.beutner.OpenUWBDemo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemoDWAPE69HXP.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = name.beutner.OpenUWBDemo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

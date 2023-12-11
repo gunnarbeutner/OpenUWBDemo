@@ -12,10 +12,9 @@
 import UIKit
 import os.log
 import OpenUWB
-import AVFoundation
 
 class AccessoryDemoViewController: UIViewController {
-    private var uwbManager: UWBManager!
+    private var uwbManager = UWBManager()
     private var accessories: [String: UWBAccessory] = [:]
     private var distances: [String: Float?] = [:]
 
@@ -36,14 +35,14 @@ class AccessoryDemoViewController: UIViewController {
         if #available(iOS 16.0, *) {
             uwbManagerOptions.useCameraAssistance = true
         }
-        uwbManager = UWBManager(delegate: self, options: uwbManagerOptions)
-        uwbManager.start()
+        uwbManager.delegate = self
+        uwbManager.run(options: uwbManagerOptions)
     }
 }
 
 extension AccessoryDemoViewController : UWBManagerDelegate {
     func didUpdateAccessory(accessory: UWBAccessory) {
-        distances[accessory.publicIdentifier] = accessory.distance
+        distances[accessory.publicIdentifier] = accessory.nearbyObject?.distance
         distanceLabel.text = distances.map {
             String(format: "%@: %@\n", $0.key, $0.value != nil ? String(format: "%0.1fm", $0.value!) : "?")
         }.joined()
