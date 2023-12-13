@@ -10,6 +10,7 @@
 
 import SwiftUI
 import OpenUWB
+import SceneKit
 
 class IndoorLocationModel : Optimizable {
     var minInitSolution: Vector<Double>
@@ -76,16 +77,11 @@ class IndoorLocationModel : Optimizable {
 
 struct FloorplanView: View {
     @ObservedObject var floorplanManager: FloorplanManager
-    var distances: [String: Float] = [:]
-    var ourLocation: Vector<Double>?
-    var bestError: Double?
-    var probes: [[Double]: Double]?
 
     var body: some View {
         VStack {
-            if let location = self.ourLocation {
-                Text(String(format: "%0.2f %0.2f %0.2f", location[0], location[1], location[2]))
-            }
+            Text(String(format: "%0.2f %0.2f %0.2f", floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z))
+            Text("\(floorplanManager.closestNode ?? "<none>")")
             ZStack {
                 Canvas { context, size in
                     let floor = self.floorplanManager.floorplan.floors[0]
@@ -107,34 +103,14 @@ struct FloorplanView: View {
                     for accessory in self.floorplanManager.floorplan.accessories {
                         context.stroke(
                             Path(ellipseIn: CGRect(x: accessory.location[0] * xScale, y: (floor.bounds[1][1] - accessory.location[1]) * yScale, width: 2, height: 2)),
-                            with: distances[accessory.id] != nil ? .color(.red) : .color(.gray),
-                            lineWidth: 4)
-                        if let distance = distances[accessory.id] {
-                            let width = Double(distance) * xScale
-                            let height = Double(distance) * yScale
-                            let rect = CGRect(x: accessory.location[0] * xScale - width, y: (floor.bounds[1][1] - accessory.location[1]) * yScale - height, width: 2 * width, height: 2 * height)
-                            context.stroke(
-                                Path(ellipseIn: rect),
-                                with: accessory.exact ? .color(.orange) : .color(.gray),
-                                lineWidth: 1)
-                        }
-                    }
-                    
-                    if let probes = self.probes {
-                        for (solution, _) in probes {
-                            context.stroke(
-                                Path(ellipseIn: CGRect(x: solution[0] * xScale, y: (floor.bounds[1][1] - solution[1]) * yScale, width: 0.5, height: 0.5)),
-                                with: .color(.mint),
-                                lineWidth: 1)
-                        }
-                    }
-                    
-                    if let location = self.ourLocation {
-                        context.stroke(
-                            Path(ellipseIn: CGRect(x: location[0] * xScale, y: (floor.bounds[1][1] - location[1]) * yScale, width: 2, height: 2)),
-                            with: .color(.purple),
+                            with: .color(.red),
                             lineWidth: 4)
                     }
+                    
+                    context.stroke(
+                        Path(ellipseIn: CGRect(x: Double(self.floorplanManager.location.x) * xScale, y: (floor.bounds[1][1] - Double(self.floorplanManager.location.y)) * yScale, width: 2, height: 2)),
+                        with: .color(.purple),
+                        lineWidth: 4)
                 }
                 .frame(width: 300, height: 300, alignment: .center)
                 .border(Color.blue)
@@ -143,17 +119,18 @@ struct FloorplanView: View {
         }
     }
     
-    init(floorplanManager: FloorplanManager, distances: [String: Float], ourLocation: Vector<Double>?, bestError: Double?, probes: [[Double]: Double]?) {
+    init(floorplanManager: FloorplanManager) {
         self.floorplanManager = floorplanManager
-        self.distances = distances
-        self.ourLocation = ourLocation
-        self.bestError = bestError
-        self.probes = probes
     }
 }
 
 class FloorplanManager: ObservableObject {
     public private(set) var floorplan: Floorplan
+    @Published public var rawLocation = simd_float3()
+    @Published public var location = simd_float3()
+    @Published public var locationOffset = simd_float3()
+    @Published public var locationOffsetValid = false
+    @Published public var closestNode: String?
     
     init() {
         let asset = NSDataAsset(name: "Floorplan")
@@ -163,6 +140,6 @@ class FloorplanManager: ObservableObject {
 
 struct FloorplanView_Previews: PreviewProvider {
     static var previews: some View {
-        FloorplanView(floorplanManager: FloorplanManager(), distances: [:], ourLocation: nil, bestError: nil, probes: nil)
+        FloorplanView(floorplanManager: FloorplanManager())
     }
 }

@@ -27,10 +27,6 @@ struct CameraAssistanceView: View {
     @State var closestNearbyObject: NINearbyObject?
     @State var distances: [String: Float] = [:]
     @State var distanceInfo = ""
-    @State var probes: [[Double]: Double]?
-    @State var ourLocation: Vector<Double>?
-    @State var bestError: Double?
-    private var locationSolverQueue = DispatchQueue(label: "LocationSolver", qos: .background)
     var espresenseManager = ESPresenseManager(host: "mqtt.beutner.name", port: 1883, identifier: "OpenUWB", username: "uwb", password: "z0LKmHX74QjA")
 
     var body: some View {
@@ -38,14 +34,14 @@ struct CameraAssistanceView: View {
             VStack {
                 Spacer()
                 if useCameraAssistance {
-                    NIARView(sessionManager: sessionManager)
+                    NIARView(sessionManager: sessionManager, floorplanManager: floorplanManager)
                         .frame(width: reader.size.width, height: reader.size.height * 0.35,
                                alignment: .center)
                         .overlay(NICoachingOverlay(horizontalAngle: closestNearbyObject?.horizontalAngle,
                                                    distance: closestNearbyObject?.distance,
                                                    convergenceContext: sessionManager.convergenceContext), alignment: .center)
                 }
-                FloorplanView(floorplanManager: floorplanManager, distances: distances, ourLocation: ourLocation, bestError: bestError, probes: probes)
+                FloorplanView(floorplanManager: floorplanManager)
                 Text(distanceInfo)
                     .lineLimit(10, reservesSpace: true)
                 Spacer()
@@ -60,31 +56,24 @@ struct CameraAssistanceView: View {
                 if !useCameraAssistance {
                     sessionManager.run()
                 }
-                
-                updateTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { _ in
-                    for (node, measurement) in espresenseManager.measurements {
-                        if measurement.timestamp < Date.now - TimeInterval(5) {
-                            distances.removeValue(forKey: node)
-                        } else {
-                            distances[node] = measurement.distance
-                        }
-                    }
-
-                    //if sessionManager.accessories.values.filter { ($0.nearbyObject?.distance ?? Float.infinity).isFinite }.count > 1 {
-                    if distances.values.filter { $0.isFinite }.count > 1 {
-                        let model = IndoorLocationModel(floorplan: floorplanManager.floorplan, distances: distances)
-                        let optimizer = SimplexSearcher(optimizableModel: model)
-                        locationSolverQueue.async {
-                            optimizer.optimize(maxIterations: 10000)
-                            DispatchQueue.main.async {
-                                self.probes = model.probes
-                                self.ourLocation = optimizer.bestSolution
-                                self.bestError = optimizer.valueBestSolution
-                            }
-                        }
-                    }
-                }
             })
+            .gesture(
+                TapGesture().onEnded({ recognizer in
+                    /*let sceneView = recognizer.view as! SCNView
+                    //  Set the recognizer's location as anywhere in the sceneView and register when our location is tapped.
+                    let touchLocation = recognizer.location(in: sceneView)
+                    let hitResults = sceneView.hitTest(touchLocation, options: [:])
+                    //  If there is a result in hitResults, do something!
+                    if !hitResults.isEmpty {
+                        addSphere(position: hitResults[0].worldCoordinates)
+                    }*/
+                    
+                    if let closestNode = self.floorplanManager.floorplan.accessories.first(where: { $0.id == floorplanManager.closestNode }) {
+                        floorplanManager.locationOffset = simd_float3(Float(closestNode.location[0]) - floorplanManager.rawLocation.x, Float(closestNode.location[1]) - floorplanManager.rawLocation.y, 0)
+                        floorplanManager.locationOffsetValid = true
+                    }
+                })
+            )
         }
     }
     
@@ -146,44 +135,21 @@ struct CalibrationDatapoint : Encodable {
 
 extension CameraAssistanceView: ESPresenseManagerDelegate {
     func didUpdateAccessory(node: String, measurement: OpenUWB.Measurement) {
+        let closestNode = self.espresenseManager.measurements.min(by: { $0.value.rssi > $1.value.rssi })?.key
+        DispatchQueue.main.async {
+            self.floorplanManager.closestNode = closestNode
+        }
+
         var uwbDistances = [String: Float]()
-        let refRssi: Float = -59.0
-        let absorption: Float = 3.5
         for uwbAccessory in sessionManager.accessories.values {
             if let distance = uwbAccessory.nearbyObject?.distance {
                 uwbDistances[uwbAccessory.id] = distance
             }
         }
-        if uwbDistances.count < 3 {
-            return
-        }
-        let model = IndoorLocationModel(floorplan: floorplanManager.floorplan, distances: uwbDistances)
-        let optimizer = SimplexSearcher(optimizableModel: model)
-        locationSolverQueue.async {
-            optimizer.optimize(maxIterations: 10000)
-            guard let location = optimizer.bestSolution else {
-                return
-            }
-            espresenseManager.sendLocation(location.vector)
-        
-            guard let bleSensorInfo = floorplanManager.floorplan.accessories.first(where: { accessory in
-                accessory.id == node
-            }) else {
-                return
-            }
-            let vec = location - Vector<Double>(bleSensorInfo.location)
-            let mag = Float(sqrt(pow(vec[0], 2) + pow(vec[1], 2) + pow(vec[2], 2)))
-            let expectedRssi = refRssi - 10 * absorption * log10(mag)
-            let measuredRssi = measurement.rssi
-            let deltaRssi = expectedRssi - measuredRssi
-            do {
-                let cal = CalibrationDatapoint(rxX: bleSensorInfo.location[0], rxY: bleSensorInfo.location[1], rxZ: bleSensorInfo.location[2], txX: location[0], txY: location[1], txZ: location[2], refRssi: refRssi, absorption: absorption, node: node, deltaRssi: deltaRssi)
-                let json = try String(decoding: JSONEncoder().encode(cal), as: UTF8.self)
-                print("\(json),")
-            } catch {
-                print(error)
-            }
-        }
+
+        guard let currentConvergenceContext = sessionManager.convergenceContext else { return }
+        guard floorplanManager.locationOffsetValid, currentConvergenceContext.status == .converged else { return }
+        print(node, floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z, measurement.rssi)
     }
 }
 
@@ -196,22 +162,43 @@ struct NICameraAssistanceView_Previews: PreviewProvider {
 
 #if !os(watchOS)
 private class NIARSessionDelegate : NSObject, ARSessionDelegate {
+    var minObservedHeight: Float = 0
+    var floorplanManager: FloorplanManager!
+
+    init(floorplanManager: FloorplanManager) {
+        self.floorplanManager = floorplanManager
+    }
+    
     func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
         return false
+    }
+    
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        //let angle = (360 - 231) * Float.pi / 180
+        let node = SCNNode()
+        let cam = SCNMatrix4(frame.camera.transform)
+        //let rotation = SCNMatrix4Rotate(SCNMatrix4Identity, -angle, 0, 1, 0)
+        node.transform = cam //SCNMatrix4Mult(cam, rotation)
+        if node.position.y < minObservedHeight {
+            minObservedHeight = node.position.y
+        }
+        
+        floorplanManager.rawLocation = simd_float3(node.position.x, -node.position.z, node.position.y)
+        floorplanManager.location = floorplanManager.rawLocation + floorplanManager.locationOffset - simd_float3(0, 0, minObservedHeight)
     }
 }
 #endif
 
 // A subview with the AR view.
 struct NIARView: UIViewRepresentable {
-
     var sessionManager: UWBManager
-    private var arSessionDelegate = NIARSessionDelegate()
+    private var arSessionDelegate: NIARSessionDelegate
 
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
 
-    init(sessionManager: UWBManager) {
+    init(sessionManager: UWBManager, floorplanManager: FloorplanManager) {
         self.sessionManager = sessionManager
+        self.arSessionDelegate = NIARSessionDelegate(floorplanManager: floorplanManager)
     }
     
     func makeUIView(context: Context) -> ARView {
@@ -294,7 +281,6 @@ struct NIARView: UIViewRepresentable {
 
         // Updates the peer anchor.
         func updatePeerAnchor(arView: ARView, accessory: UWBAccessory, currentConvergenceContext: NIAlgorithmConvergence) {
-
             // Check whether the framework fully resolves the world transform.
             if currentConvergenceContext.status == .converged {
                 // Hide the blur view.
@@ -372,4 +358,3 @@ struct NICoachingOverlay: View {
         .foregroundColor(.white)
     }
 }
-
