@@ -17,7 +17,6 @@ import os
 import Combine
 import OpenUWB
 
-let useCameraAssistance = true
 var updateTimer: Timer?
 
 // The main view for the Camera Assistance feature.
@@ -31,20 +30,31 @@ struct CameraAssistanceView: View {
 
     var body: some View {
         GeometryReader { reader in
-            VStack {
-                Spacer()
-                if useCameraAssistance {
-                    NIARView(sessionManager: sessionManager, floorplanManager: floorplanManager)
-                        .frame(width: reader.size.width, height: reader.size.height * 0.35,
-                               alignment: .center)
-                        .overlay(NICoachingOverlay(horizontalAngle: closestNearbyObject?.horizontalAngle,
-                                                   distance: closestNearbyObject?.distance,
-                                                   convergenceContext: sessionManager.convergenceContext), alignment: .center)
+            ZStack {
+                NIARView(sessionManager: sessionManager, floorplanManager: floorplanManager)
+                    .frame(width: reader.size.width, height: reader.size.height,
+                           alignment: .center)
+                    .overlay(NICoachingOverlay(horizontalAngle: closestNearbyObject?.horizontalAngle,
+                                               distance: closestNearbyObject?.distance,
+                                               convergenceContext: sessionManager.convergenceContext), alignment: .center)
+                VStack {
+                    HStack {
+                        Button("Calibrate XZ", action: {
+                            let rotation = SCNMatrix4Rotate(SCNMatrix4Identity, -floorplanManager.cameraHeading, 0, 1, 0)
+                            sessionManager.arSession?.setWorldOrigin(relativeTransform: simd_float4x4(rotation))
+                        })
+                        Button("Calibrate XY", action: {
+                            if let closestNode = self.floorplanManager.floorplan.accessories.first(where: { $0.id == floorplanManager.closestNode }) {
+                                let translation = SCNMatrix4Translate(SCNMatrix4Identity, -(Float(closestNode.location[0]) - floorplanManager.location.x), 0, Float(closestNode.location[1]) - floorplanManager.location.y)
+                                sessionManager.arSession?.setWorldOrigin(relativeTransform: simd_float4x4(translation))
+                                floorplanManager.locationOffsetValid = true
+                            }
+                        })
+                    }
+                    FloorplanView(floorplanManager: floorplanManager)
+                    Text(distanceInfo)
+                        .lineLimit(10, reservesSpace: true)
                 }
-                FloorplanView(floorplanManager: floorplanManager)
-                Text(distanceInfo)
-                    .lineLimit(10, reservesSpace: true)
-                Spacer()
             }
             .onAppear(perform: {
                 espresenseManager.delegate = self
@@ -53,9 +63,8 @@ struct CameraAssistanceView: View {
                 }
                 
                 sessionManager.delegate = self
-                if !useCameraAssistance {
-                    sessionManager.run()
-                }
+                
+                UIApplication.shared.isIdleTimerDisabled = true
             })
             .gesture(
                 TapGesture().onEnded({ recognizer in
@@ -67,11 +76,6 @@ struct CameraAssistanceView: View {
                     if !hitResults.isEmpty {
                         addSphere(position: hitResults[0].worldCoordinates)
                     }*/
-                    
-                    if let closestNode = self.floorplanManager.floorplan.accessories.first(where: { $0.id == floorplanManager.closestNode }) {
-                        floorplanManager.locationOffset = simd_float3(Float(closestNode.location[0]) - floorplanManager.rawLocation.x, Float(closestNode.location[1]) - floorplanManager.rawLocation.y, 0)
-                        floorplanManager.locationOffsetValid = true
-                    }
                 })
             )
         }
@@ -120,17 +124,16 @@ extension CameraAssistanceView: UWBManagerDelegate {
     }
 }
 
-struct CalibrationDatapoint : Encodable {
-    var rxX: Double
-    var rxY: Double
-    var rxZ: Double
-    var txX: Double
-    var txY: Double
-    var txZ: Double
-    var refRssi: Float
-    var absorption: Float
+struct ReferencePointMessage : Encodable {
     var node: String
-    var deltaRssi: Float
+    var X: Float
+    var Y: Float
+    var Z: Float
+    var nX: Float
+    var nY: Float
+    var nZ: Float
+    var channel: Int
+    var rssi: Int
 }
 
 extension CameraAssistanceView: ESPresenseManagerDelegate {
@@ -147,9 +150,11 @@ extension CameraAssistanceView: ESPresenseManagerDelegate {
             }
         }
 
-        guard let currentConvergenceContext = sessionManager.convergenceContext else { return }
-        guard floorplanManager.locationOffsetValid, currentConvergenceContext.status == .converged else { return }
-        print(node, floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z, measurement.rssi)
+        guard floorplanManager.locationOffsetValid else { return }
+        
+        let info = ReferencePointMessage(node: node, X: floorplanManager.location.x, Y: floorplanManager.location.y, Z: floorplanManager.location.z, nX: floorplanManager.cameraNormal.x, nY: floorplanManager.cameraNormal.y, nZ: floorplanManager.cameraNormal.z, channel: measurement.chn, rssi: measurement.rssi)
+        espresenseManager.sendLocation(info)
+        print(node, floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z, floorplanManager.cameraNormal.x, floorplanManager.cameraNormal.y, floorplanManager.cameraNormal.z, measurement.chn, measurement.rssi)
     }
 }
 
@@ -173,18 +178,55 @@ private class NIARSessionDelegate : NSObject, ARSessionDelegate {
         return false
     }
     
+    func cameraHeading(camera: ARCamera) -> Float {
+        // https://stackoverflow.com/questions/49864305/getting-y-rotation-of-arkit-pointofview
+        let deviceRotM = GLKMatrix4GetMatrix3(SCNMatrix4ToGLKMatrix4(SCNMatrix4(camera.transform)))
+        let Q = GLKQuaternionMakeWithMatrix3(deviceRotM)
+
+        // We want to use the phone's Z normal (in the phone's reference frame) projected onto XZ to get the angle when the phone is upright BUT the Y normal when it's horizontal. We'll crossfade between the two based on the phone tilt (euler x)...
+        let phoneZNormal = GLKQuaternionRotateVector3(Q, GLKVector3Make(0, 0, 1))
+        let phoneYNormal = GLKQuaternionRotateVector3(Q, GLKVector3Make(1, 0, 0)) // why 1,0,0? Rotation=(0,0,0) is when the phone is landscape and upright. We want the vector that will point to +Z when the phone is portrait and flat
+
+        var zHeading = atan2f(phoneZNormal.x, phoneZNormal.z)
+        return -zHeading
+        
+        /*let yHeading = atan2f(phoneYNormal.x, phoneYNormal.z)
+
+        // Flip the zHeading if phone is tilting down, ie. the normal pointing down the device suddenly has a +y component
+        let isDownTilt = phoneYNormal.y > 0;
+        if isDownTilt {
+            zHeading = zHeading + Float.pi
+            if (zHeading > Float.pi) {
+                zHeading -= 2 * Float.pi
+            }
+        }
+
+        let a = abs(camera.eulerAngles.x / (Float.pi * 2))
+        let heading = a * yHeading + (1 - a) * zHeading
+        return -heading*/
+    }
+    
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        //let angle = (360 - 231) * Float.pi / 180
-        let node = SCNNode()
+        //let buildingRotation: Float = 90
+        //let angle = floorplanManager.rotation + buildingRotation * Float.pi / 180
         let cam = SCNMatrix4(frame.camera.transform)
-        //let rotation = SCNMatrix4Rotate(SCNMatrix4Identity, -angle, 0, 1, 0)
-        node.transform = cam //SCNMatrix4Mult(cam, rotation)
+
+        let node = SCNNode()
+
+        node.transform = cam
+        floorplanManager.cameraHeading = cameraHeading(camera: frame.camera)
         if node.position.y < minObservedHeight {
             minObservedHeight = node.position.y
         }
+
+        floorplanManager.location = simd_float3(node.position.x, -node.position.z, node.position.y) - simd_float3(0, 0, minObservedHeight)
         
-        floorplanManager.rawLocation = simd_float3(node.position.x, -node.position.z, node.position.y)
-        floorplanManager.location = floorplanManager.rawLocation + floorplanManager.locationOffset - simd_float3(0, 0, minObservedHeight)
+        let camDirection = simd_float3(
+            -frame.camera.transform.columns.2.x,
+            frame.camera.transform.columns.2.z,
+            -frame.camera.transform.columns.2.y
+        )
+        floorplanManager.cameraNormal = normalize(camDirection)
     }
 }
 #endif
@@ -253,7 +295,7 @@ struct NIARView: UIViewRepresentable {
         // Anchor entities for placing AR content in the AR world.
         var peerAnchors: [String: AnchorEntity] = [:]
 
-        init( _ parent: NIARView) {
+        init(_ parent: NIARView) {
             self.parent = parent
         }
 
@@ -335,26 +377,37 @@ struct NICoachingOverlay: View {
     var body: some View {
         VStack {
             // Scale the image based on distance, if available.
-            let distanceScale = distance == nil ? 0.5 : distance!.scale(minRange: 0.15, maxRange: 1.0, minDomain: 0.5, maxDomain: 2.0)
-            let imageScale = (horizontalAngle == nil) ? 0.5 : distanceScale
+            //let distanceScale = distance == nil ? 0.5 : distance!.scale(minRange: 0.15, maxRange: 1.0, minDomain: 0.5, maxDomain: 2.0)
+            //let imageScale = (horizontalAngle == nil) ? 0.5 : distanceScale
             // Text to display that guides the user to move the phone up and down.
-            let message = "Move phone up and down to see beacon location"
-            let upDownText = (convergenceContext != nil && convergenceContext!.status != .converged) ? message : ""
+            //let message = "Move phone up and down to see beacon location"
+            //let upDownText = (convergenceContext != nil && convergenceContext!.status != .converged) ? message : ""
             // The final guidance text.
-            let guidanceText = distance == nil ? "Finding next beacon ..." : (horizontalAngle == nil ? "Move side to side" : "Head to the beacon")
+            let guidanceText = (convergenceContext != nil && convergenceContext!.status != .converged) ? convergenceDescription(convergenceContext!.status) : "<>" // distance == nil ? "Finding next beacon ..." : (horizontalAngle == nil ? "Move side to side" : "Head to the beacon")
 
             // Display an image to help guide the user.
-            Image(systemName: distance == nil ? "sparkle.magnifyingglass" : (horizontalAngle == nil ? "move.3d" : "arrow.up.circle"))
-                    .resizable()
-                    .frame(width: 200 * CGFloat(imageScale), height: 200 * CGFloat(imageScale), alignment: .center)
+            //Image(systemName: distance == nil ? "sparkle.magnifyingglass" : (horizontalAngle == nil ? "move.3d" : "arrow.up.circle"))
+            //        .resizable()
+            //        .frame(width: 200 * CGFloat(imageScale), height: 200 * CGFloat(imageScale), alignment: .center)
             // Rotate the image by the horizontal angle, when available.
-                .rotationEffect(.init(radians: Double(horizontalAngle ?? 0.0)))
+            //    .rotationEffect(.init(radians: Double(horizontalAngle ?? 0.0)))
             Text(guidanceText).frame(alignment: .center)
-            Text(upDownText).frame(alignment: .center).opacity(
-                horizontalAngle != nil && (convergenceContext != nil && convergenceContext!.status != .converged) ? 0.85 : 0)
+            //Text(upDownText).frame(alignment: .center).opacity(
+            //    horizontalAngle != nil && (convergenceContext != nil && convergenceContext!.status != .converged) ? 0.85 : 0)
         }
         // Remove the overlay if the status is converged.
         .opacity(convergenceContext != nil && convergenceContext!.status == .converged ? 0 : 1)
         .foregroundColor(.white)
+    }
+    
+    private func convergenceDescription(_ status: NIAlgorithmConvergenceStatus) -> String {
+        switch status {
+        case .converged:
+            return "converged"
+        case .notConverged(let reasons):
+            return reasons.map { $0.rawValue }.joined(separator: ", ")
+        default:
+            return "unknown"
+        }
     }
 }

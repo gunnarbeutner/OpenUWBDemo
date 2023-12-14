@@ -11,6 +11,7 @@
 import SwiftUI
 import OpenUWB
 import SceneKit
+import CoreLocation
 
 class IndoorLocationModel : Optimizable {
     var minInitSolution: Vector<Double>
@@ -80,8 +81,14 @@ struct FloorplanView: View {
 
     var body: some View {
         VStack {
-            Text(String(format: "%0.2f %0.2f %0.2f", floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z))
-            Text("\(floorplanManager.closestNode ?? "<none>")")
+            HStack {
+                Text(String(format: "%0.2f %0.2f %0.2f", floorplanManager.location.x, floorplanManager.location.y, floorplanManager.location.z))
+                Text("\(floorplanManager.closestNode ?? "<none>")")
+                Text(String(format: "%0.2f %0.2f %0.2f", floorplanManager.cameraNormal.x, floorplanManager.cameraNormal.y, floorplanManager.cameraNormal.z))
+            }
+            HStack {
+                Text("\(self.floorplanManager.cameraHeading / (Float.pi / 180))")
+            }
             ZStack {
                 Canvas { context, size in
                     let floor = self.floorplanManager.floorplan.floors[0]
@@ -107,6 +114,23 @@ struct FloorplanView: View {
                             lineWidth: 4)
                     }
                     
+                    let viewer = CGPoint(x: Double(self.floorplanManager.location.x) * xScale, y: (floor.bounds[1][1] - Double(self.floorplanManager.location.y)) * yScale)
+                    let pov = CGPoint(x: viewer.x + CGFloat(self.floorplanManager.cameraNormal.x) * xScale, y: viewer.y - CGFloat(self.floorplanManager.cameraNormal.y) * yScale)
+                    
+                    let viewingDirection = CGMutablePath()
+                    viewingDirection.move(to: viewer)
+                    viewingDirection.addLine(to: pov)
+                    viewingDirection.closeSubpath()
+                    context.stroke(
+                        Path(viewingDirection),
+                        with: .color(.yellow),
+                        lineWidth: 1)
+                    
+                    /*context.stroke(
+                        Path(ellipseIn: CGRect(x: Double(self.floorplanManager.location.x + self.floorplanManager.cameraNormal.x) * xScale, y: (floor.bounds[1][1] - Double(self.floorplanManager.location.y + self.floorplanManager.cameraNormal.y)) * yScale, width: 2, height: 2)),
+                        with: .color(.yellow),
+                        lineWidth: 4)*/
+
                     context.stroke(
                         Path(ellipseIn: CGRect(x: Double(self.floorplanManager.location.x) * xScale, y: (floor.bounds[1][1] - Double(self.floorplanManager.location.y)) * yScale, width: 2, height: 2)),
                         with: .color(.purple),
@@ -124,15 +148,18 @@ struct FloorplanView: View {
     }
 }
 
-class FloorplanManager: ObservableObject {
-    public private(set) var floorplan: Floorplan
-    @Published public var rawLocation = simd_float3()
+class FloorplanManager: NSObject, ObservableObject {
+    public private(set) var floorplan: Floorplan!
+    @Published public var cameraHeading: Float = 0
     @Published public var location = simd_float3()
+    @Published public var cameraNormal = simd_float3()
     @Published public var locationOffset = simd_float3()
     @Published public var locationOffsetValid = false
     @Published public var closestNode: String?
-    
-    init() {
+
+    override init() {
+        super.init()
+
         let asset = NSDataAsset(name: "Floorplan")
         self.floorplan = loadFloorplan(asset!.data)
     }
